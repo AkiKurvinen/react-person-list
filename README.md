@@ -1,10 +1,9 @@
 # Person list app with React
 
-| Key              | Value                     |
-| ---------------- | ------------------------- |
-| Owner            | Aki Kurvinen              |
-| Description      | People data mangement app |
-| External Service | Heroku to be added        |
+| Owner            | Aki Kurvinen                           |
+| ---------------- | -------------------------------------- |
+| Description      | People data mangement app              |
+| External Service | https://person-list-app.herokuapp.com/ |
 
 ## Installation
 
@@ -13,11 +12,14 @@ npm install
 npm start
 ```
 
+## Features
+
+- Bootstrap styles
+- Heroku Release
+
 ## Upcoming features
 
 - Add person object (fname, lname, age) to list
 - Remove person from list
 - Edit details
-- Styling with CSS
 - Sorting list
-- Heroku Release
