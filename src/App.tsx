@@ -17,14 +17,28 @@ function App() {
     { id: 4, fname: "Matti", lname: "Tiger", age: 40 },
   ];
 
-  const [data, setData] = useState(testData);
+  const [data, setData] = useState(() => {
+    return testData;
+  });
 
-  const getData = () => {
-    setData(testData);
-  };
-  useEffect(() => {
-    getData();
-  }, []);
+  //const getData = () => {
+  // setData(testData);
+  // };
+
+  function handleDelete(row: Object) {
+    const obj = JSON.parse(JSON.stringify(row));
+    const deleteId: number = obj.id;
+    console.log(obj.id);
+
+    const newData: any = data.filter((item) => item.id !== deleteId);
+    console.log(newData);
+
+    setData(newData);
+  }
+
+  // useEffect(() => {
+  // getData();
+  //}, []);
 
   const columns = [
     {
@@ -76,20 +90,6 @@ function App() {
       },
     },
   ];
-  function handleDelete(row: Object) {
-    const obj = JSON.parse(JSON.stringify(row));
-    const deleteId: number = obj.id;
-    console.log(obj.id);
-
-    ///
-
-    const newData: any = testData.filter((item) => item.id !== deleteId);
-    console.log(newData);
-
-    setData(newData);
-
-    return 0;
-  }
 
   return (
     <div className="App">
@@ -100,7 +100,7 @@ function App() {
       <main>
         <BootstrapTable
           keyField="id"
-          data={testData}
+          data={data}
           columns={columns}
           striped
           hover
