@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import Button from "react-bootstrap/Button";
 // @ts-ignore
 import BootstrapTable from "react-bootstrap-table-next";
@@ -7,38 +6,81 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 // @ts-ignore
 import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
-import "./App.css";
+
+import Form from "react-bootstrap/Form";
+import nextId from "react-id-generator";
+import { Row, Col } from "react-bootstrap";
 
 function App() {
+  // Form fields
+  const [formFname, setFormFname] = useState("");
+  const [formLname, setFormLname] = useState("");
+  const [formAge, setFormAge] = useState(1);
+  const [formIsNotValid, setFormIsNotValid] = useState(true);
+
   const testData = [
-    { id: 1, fname: "George", lname: "Monkey", age: 10 },
-    { id: 2, fname: "Jeffrey", lname: "Giraffe", age: 20 },
-    { id: 3, fname: "Alice", lname: "Giraffe", age: 30 },
-    { id: 4, fname: "Matti", lname: "Tiger", age: 40 },
+    {
+      id: parseInt(nextId().substring(2)),
+      fname: "Aarne",
+      lname: "Adam-Alfa",
+      age: 10,
+    },
+    {
+      id: parseInt(nextId().substring(2)),
+      fname: "Bertta",
+      lname: "Bertil-Bravo",
+      age: 20,
+    },
+    {
+      id: parseInt(nextId().substring(2)),
+      fname: "Celcius",
+      lname: "Cesar-Charlie",
+      age: 30,
+    },
+    {
+      id: parseInt(nextId().substring(2)),
+      fname: "Daavid",
+      lname: "David-Delta",
+      age: 40,
+    },
   ];
 
-  const [data, setData] = useState(() => {
-    return testData;
-  });
+  const [data, setData] = useState(testData);
 
-  //const getData = () => {
-  // setData(testData);
-  // };
+  // Check form input and enable/disble submit button
+  useEffect(() => {
+    if (formFname && formLname && formAge) {
+      setFormIsNotValid(false);
+    } else {
+      setFormIsNotValid(true);
+    }
+  }, [formFname, formLname, formAge]);
+
+  const addPersonTolist = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const human = {
+      id: parseInt(nextId().substring(2)),
+      fname: formFname,
+      lname: formLname,
+      age: formAge,
+    };
+
+    const newData: any = [...data, human];
+
+    setData(newData);
+    setFormAge(0);
+    setFormFname("");
+    setFormLname("");
+  };
 
   function handleDelete(row: Object) {
     const obj = JSON.parse(JSON.stringify(row));
     const deleteId: number = obj.id;
-    console.log(obj.id);
-
     const newData: any = data.filter((item) => item.id !== deleteId);
-    console.log(newData);
 
     setData(newData);
   }
-
-  // useEffect(() => {
-  // getData();
-  //}, []);
 
   const columns = [
     {
@@ -94,7 +136,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Human Resources Application</h1>
+        <h1>Human Resources</h1>
         <p>&#9432; Double click to edit fields. (ID not editable)</p>
       </header>
       <main>
@@ -111,6 +153,51 @@ function App() {
             nonEditableRows: () => [0],
           })}
         />
+        <hr />
+        <h3>Add person</h3>
+
+        <Form onSubmit={addPersonTolist}>
+          <Row>
+            <Col>
+              <Form.Group controlId="formFname">
+                <Form.Label>First name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter First name"
+                  value={formFname}
+                  onChange={(e) => setFormFname(e.target.value)}
+                />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="formLname">
+                <Form.Label>Last name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Last name"
+                  value={formLname}
+                  onChange={(e) => setFormLname(e.target.value)}
+                />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="formAge">
+                <Form.Label>Age</Form.Label>
+                <Form.Control
+                  type="number"
+                  placeholder="Enter age"
+                  value={formAge}
+                  onChange={(e) => setFormAge(parseInt(e.target.value))}
+                />
+              </Form.Group>
+            </Col>
+            <Col xs="auto" className="d-flex align-items-end">
+              <Button variant="primary" type="submit" disabled={formIsNotValid}>
+                Add person
+              </Button>
+            </Col>
+          </Row>
+        </Form>
       </main>
     </div>
   );

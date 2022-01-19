@@ -17,7 +17,9 @@ body {
   height: 40vmin;
   pointer-events: none;
 }
-
+main {
+  padding: 10px;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -54,4 +56,13 @@ body {
 }
 #pageDropDown span {
   display: none;
+}
+main form {
+  font-size: 1.2em;
+}
+.form-control {
+  font-size: 1.2em;
+}
+form .btn-primary {
+  line-height: 2.5em;
 }
