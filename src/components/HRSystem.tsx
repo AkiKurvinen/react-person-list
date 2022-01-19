@@ -97,7 +97,7 @@ function HRSystem() {
     },
     {
       dataField: "lname",
-      text: "last Name",
+      text: "Last Name",
       sort: true,
     },
     {
