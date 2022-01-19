@@ -9,8 +9,6 @@ body {
 }
 .App {
   text-align: left;
-  margin: 0 auto;
-  max-width: 900px;
 }
 
 .App-logo {
@@ -19,6 +17,8 @@ body {
 }
 main {
   padding: 10px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -28,7 +28,13 @@ main {
 
 .App-header {
   background-color: #fff;
-  margin-top: 20px;
+  margin-top: 0px;
+}
+.App-header .infoText {
+  color: #fff;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1em;
 }
 .react-bootstrap-table-page-btns-ul {
   margin-top: 0;
